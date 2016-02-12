@@ -19,26 +19,19 @@ public class ModifiedMethod {
 	}
 	
 	private static void quickSort(int[] array, int left, int right, int version) {
-        int i = left;
-        int j = right;
-        int pivot = array[(i+j)/2];
-        while (i <= j) {
-        	while (array[i] < pivot) {
-                i++;
-            }
-            while (array[j] > pivot) {
-                j--;
-            }
-            if (i < j) {
-                swap(array, i, j);
-            }
-            i++;
-            j--;
-        }
-        if (left < j)
-            quickSort(array, left, j, version);
-        if (i < right)
-            quickSort(array, i, right, version);
+		int p = 0;
+		if (left < right) {
+		    int pivot = array[right];
+		    int i = left;
+		    for(int j = left; j < right; ++j)
+			{
+				if(array[j] <= pivot)
+					swap(array, i++, j);
+		    }
+		    swap(array, i, right);
+		    quickSort(array, left, i - 1, version);
+		    quickSort(array, i + 1, right, version);
+		}
     }
 	
 	private static void swap(int[] array, int i, int j) {

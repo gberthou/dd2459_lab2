@@ -20,25 +20,31 @@ testfilename = sys.argv[1]
 version = sys.argv[2]
 
 with open(testfilename, "r") as f:
+    nPassed = 0
+    nTests = 0
     for i,line in enumerate(f):
         values = line.split(" ")
         array          = values[:ARRAY_SIZE]
         key            = values[ARRAY_SIZE]
-        expectedResult = values[ARRAY_SIZE + 1]
+        expectedResult = int(values[ARRAY_SIZE + 1])
         
         command = ["java", "-cp", "../bin", BIN, version, str(ARRAY_SIZE)]
         command.extend(array)
         command.append(key)
         
         print("[Test %d]" % i)
-        print(command)
+        print(" ".join(command))
         
         result = subprocess.run(command, stdout=subprocess.PIPE)
-        out = result.stdout
-        
-        if int(out) == int(expectedResult):
+        out = int(result.stdout)
+        if out == expectedResult:
             print("PASSED")
+            nPassed += 1
         else:
             print("FAILED")
+            print("  expected: %d" % expectedResult)
+            print("  real    : %d" % out)
         print("")
+        nTests = i+1
+    print("%d/%d passed (%.1f%%)" % (nPassed, nTests, 100.*nPassed/nTests))
 

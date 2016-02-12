@@ -20,7 +20,7 @@ public class Main {
 		 * Output: 0 if key in array
 		 *         1 if key not in array
 		 */
-
+		
 		if(args.length < 4)
 			System.out.println("Usage: java Main <version> <arraySize> <array> <key>");
 		else
@@ -31,7 +31,7 @@ public class Main {
 				System.out.println("Too few commandline arguments");
 			else
 			{
-				int array[] = new int[arraySize];
+				int[] array = new int[arraySize];
 				int key = Integer.parseInt(args[2 + arraySize]);
 				for(int i = 0; i < arraySize; ++i)
 				{
