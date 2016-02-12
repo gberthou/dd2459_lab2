@@ -1,6 +1,7 @@
 from common import *
 import sys
 import os
+import subprocess
 
 BIN = "Main"
 
@@ -25,8 +26,19 @@ with open(testfilename, "r") as f:
         key            = values[ARRAY_SIZE]
         expectedResult = values[ARRAY_SIZE + 1]
         
-        command = "cd ../bin && java %s %s %d %s %s" % (BIN, version, ARRAY_SIZE, " ".join(array), key)
+        command = ["java", "-cp", "../bin", BIN, version, str(ARRAY_SIZE)]
+        command.extend(array)
+        command.append(key)
+        
         print("[Test %d]" % i)
         print(command)
-        os.system(command)
+        
+        result = subprocess.run(command, stdout=subprocess.PIPE)
+        out = result.stdout
+        
+        if int(out) == int(expectedResult):
+            print("PASSED")
+        else:
+            print("FAILED")
+        print("")
 
