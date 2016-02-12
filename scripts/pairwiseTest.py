@@ -1,5 +1,5 @@
-ARRAY_SIZE = 8
-MAX_VALUE = 15
+from common import *
+
 OUTPUT_NAME = "pairwiseTest"
 
 ITERATIONS_COUNT = (MAX_VALUE+1) ** (ARRAY_SIZE+1)
@@ -23,8 +23,14 @@ cpt = 0
 with open(OUTPUT_NAME, "w") as f:
     while array != None:
         for j in range(MAX_VALUE+1):
+            expectedResult = (j in array)
+
             t = [str(x) for x in array]
             t.append(str(j))
+            if expectedResult:
+                t.append("1")
+            else:
+                t.append("0")
             f.write(" ".join(t) + "\n")
             
             if (cpt % ITERATIONS_PERCENT) == 0:
