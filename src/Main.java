@@ -1,4 +1,3 @@
-
 public class Main {
 	
 	public static void printArray(int[] array){
@@ -15,13 +14,34 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		int[] array = {2,1,3,5,4};
-		printArray(array);
-		Method.sort(array);
-		printArray(array);
-		int key = 6;
-		System.out.println("Binary Search for " + key + ": " +
-				Method.binarySearch(array, key));
+		/* args format:
+		 * java Main <version> <arraySize> <array> <key>
+		 *
+		 * Output: 0 if key in array
+		 *         1 if key not in array
+		 */
+
+		if(args.length < 4)
+			System.out.println("Usage: java Main <version> <arraySize> <array> <key>");
+		else
+		{
+			int version = Integer.parseInt(args[0]);
+			int arraySize = Integer.parseInt(args[1]);
+			if(args.length < arraySize + 3)
+				System.out.println("Too few commandline arguments");
+			else
+			{
+				int array[] = new int[arraySize];
+				int key = Integer.parseInt(args[2 + arraySize]);
+				for(int i = 0; i < arraySize; ++i)
+				{
+					array[i] = Integer.parseInt(args[2 + i]);
+				}
+
+				boolean result = ModifiedMethod.membership(array, key, version);
+				System.out.println(result ? "1" : "0");
+			}
+		}
 	}
 
 }

@@ -70,19 +70,11 @@ public class ModifiedMethod {
     	}
     }
     
-    public static int membership(int[] array, int key, int version){
+    public static boolean membership(int[] array, int key, int version){
     	sort(array, version);
     	if (version == 3){
-    		if (binarySearch(array, key, version) > 0){
-        		return 1;
-        	} else {
-        		return 0;
-        	}
+    		return binarySearch(array, key, version) > 0;
     	} else
-    		if (binarySearch(array, key, version) >=0){
-    			return 1;
-    		} else {
-    			return 0;
-    		}
+    		return binarySearch(array, key, version) >=0;
     }
 }
