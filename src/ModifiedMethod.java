@@ -5,7 +5,7 @@ public class ModifiedMethod {
 	 * - 0 Without error
 	 * - 1 quickSort, forget to swap values equal to pivot
 	 * - 2 quickSort, forget to put the pivot at its final place
-	 * - 3 sort from l=1 instead of l=0
+	 * - 3 sort from r=array.length-2 instead of array.length-1
 	 * - 4 binarySearch initialized with l=1 instead of l=0
 	 * - 5 integration error, test if result binary search > 0 instead of >=0
 	 * - 6 integration error, forget to sort the array before calling binarySearch
@@ -13,7 +13,7 @@ public class ModifiedMethod {
 	
 	public static void sort(int[] array, int version){
 		if (version == 3){
-			quickSort(array, 1, array.length-1, version);
+			quickSort(array, 0, array.length-2, version);
 		} else {
 			quickSort(array, 0, array.length-1, version);
 		}
