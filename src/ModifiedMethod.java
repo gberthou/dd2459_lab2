@@ -3,14 +3,16 @@ public class ModifiedMethod {
 	/*
 	 * Versions:
 	 * - 0 Without error
-	 * - 1 binarySearch initialized with l=1 instead of l=0
-	 * - 2 sort from l=1 instead of l=0
-	 * - 3 integration error, test if result binary search > 0 instead
-	 * 		of >=0
+	 * - 1 quickSort, forget to swap values equal to pivot
+	 * - 2 quickSort, forget to put the pivot at its final place
+	 * - 3 sort from l=1 instead of l=0
+	 * - 4 binarySearch initialized with l=1 instead of l=0
+	 * - 5 integration error, test if result binary search > 0 instead of >=0
+	 * - 6 integration error, forget to sort the array before calling binarySearch
 	 */
 	
 	public static void sort(int[] array, int version){
-		if (version == 2){
+		if (version == 3){
 			quickSort(array, 1, array.length-1, version);
 		} else {
 			quickSort(array, 0, array.length-1, version);
@@ -19,16 +21,23 @@ public class ModifiedMethod {
 	}
 	
 	private static void quickSort(int[] array, int left, int right, int version) {
-		int p = 0;
 		if (left < right) {
 		    int pivot = array[right];
+		    //i: final position of pivot
 		    int i = left;
 		    for(int j = left; j < right; ++j)
 			{
-				if(array[j] <= pivot)
-					swap(array, i++, j);
+		    	if (version == 1){
+		    		if(array[j] < pivot)
+						swap(array, i++, j);
+		    	} else {
+		    		if(array[j] <= pivot)
+		    			swap(array, i++, j);
+		    	}
 		    }
-		    swap(array, i, right);
+		    if (version != 2){
+		    	swap(array, i, right);
+		    }
 		    quickSort(array, left, i - 1, version);
 		    quickSort(array, i + 1, right, version);
 		}
@@ -42,7 +51,7 @@ public class ModifiedMethod {
     
     public static int binarySearch(int[] array, int key, int version){
     	int x, l, r;
-    	if (version ==1){
+    	if (version == 4){
     		l=1;
     	} else {
     		l=0;
@@ -64,8 +73,10 @@ public class ModifiedMethod {
     }
     
     public static boolean membership(int[] array, int key, int version){
-    	sort(array, version);
-    	if (version == 3){
+    	if (version != 6){
+    		sort(array, version);
+    	}
+    	if (version == 5){
     		return binarySearch(array, key, version) > 0;
     	} else
     		return binarySearch(array, key, version) >=0;
