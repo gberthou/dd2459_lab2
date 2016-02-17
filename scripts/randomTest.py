@@ -1,7 +1,7 @@
 from common import *
 from random import randint
 
-TEST_COUNT = 200
+TEST_COUNT = 20000
 OUTPUT_NAME = "randomTest"
 
 with open(OUTPUT_NAME, "w") as f:
